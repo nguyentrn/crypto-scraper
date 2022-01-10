@@ -24,6 +24,8 @@ let symbols;
     // .where("max", "<", new Date("2022-01-09T22:39:00.000Z"))
     .orderBy("rank")
     .limit(20);
+  await updateBinanceOHLCVs(symbols[0].symbol);
+
   // while (true) {
   //   for (let i = 0; i < symbols.length; i++) {
   //     await updateBinanceOHLCVs(symbols[i].symbol);
@@ -33,9 +35,9 @@ let symbols;
 })();
 
 schedule.scheduleJob("1 * * * * *", async () => {
-  for (let i = 0; i < symbols.length; i++) {
-    await updateBinanceOHLCVs(symbols[i].symbol);
-  }
+  // for (let i = 0; i < symbols.length; i++) {
+  //   await updateBinanceOHLCVs(symbols[i].symbol);
+  // }
 });
 
 // schedule.scheduleJob("* * 0 * * *", async () => {
