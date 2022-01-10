@@ -13,7 +13,6 @@ const updateBinanceOHLCVs = async (symbol) => {
       lastOHLCVs ? lastOHLCVs.time.getTime() : 0
     }`
   );
-  console.log(res);
   const data = res.data.map((ohlcv) => ({
     time: new Date(ohlcv[0]),
     open: ohlcv[1],
