@@ -23,7 +23,7 @@ let symbols;
     .where("rank", "<", 1000)
     // .where("max", "<", new Date("2022-01-09T22:39:00.000Z"))
     .orderBy("rank")
-    .limit(20);
+    .limit(36);
 
   // while (true) {
   //   for (let i = 0; i < symbols.length; i++) {
@@ -33,7 +33,7 @@ let symbols;
   // }
 })();
 
-schedule.scheduleJob("1 * * * * *", async () => {
+schedule.scheduleJob("2 * * * * *", async () => {
   for (let i = 0; i < symbols.length; i++) {
     await updateBinanceOHLCVs(symbols[i].symbol);
   }
