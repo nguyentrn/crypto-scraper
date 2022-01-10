@@ -8,6 +8,7 @@ import updateCoinmarketSymbols from "./updateCoinmarketSymbols";
 import updateExchangeSymbols from "./updateExchangeSymbols";
 
 (async () => {
+  console.log("x");
   // await updateCoinmarketSymbols();
   // await updateExchangeSymbols();
   // const symbols = await db
