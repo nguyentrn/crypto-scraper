@@ -24,7 +24,7 @@ const updateBinanceOHLCVs = async (symbol) => {
     taker_volume: ohlcv[9],
     symbol,
   }));
-  console.log(data[0].time);
+  console.log(symbol, data[0]?.time);
 
   await db("ohlcvs").insert(data).onConflict(["time", "symbol"]).merge();
 };
