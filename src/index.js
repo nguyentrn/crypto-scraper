@@ -7,7 +7,8 @@ import updateBinanceOHLCVs from "./updateBinanceOHLCVs";
 import updateCoinmarketSymbols from "./updateCoinmarketSymbols";
 import updateExchangeSymbols from "./updateExchangeSymbols";
 
-let symbols = (async () => {
+let symbols;
+(async () => {
   // await updateCoinmarketSymbols();
   // await updateExchangeSymbols();
   symbols = await db
