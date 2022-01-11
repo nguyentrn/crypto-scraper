@@ -3,7 +3,6 @@ import axios from "axios";
 import db from "../src/database/index";
 
 const updateBinanceOHLCVs = async (symbols) => {
-  console.log(symbols);
   const ohlcvs = [];
   for (let i = 0; i < symbols.length; i++) {
     const { symbol, max } = symbols[i];
@@ -27,7 +26,7 @@ const updateBinanceOHLCVs = async (symbols) => {
     );
     console.log(symbol, new Date(res.data[0][0]));
   }
-
+  console.log(ohlcvs.length);
   await db("ohlcvs").insert(ohlcvs).onConflict(["time", "symbol"]).merge();
 };
 
