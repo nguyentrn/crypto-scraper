@@ -1,6 +1,4 @@
-import { median } from "simple-statistics";
 import schedule from "node-schedule";
-import axios from "axios";
 
 import db from "./database";
 import updateBinanceOHLCVs from "./updateBinanceOHLCVs";
@@ -26,17 +24,14 @@ let symbols;
     .limit(36);
 
   // while (true) {
-  //   for (let i = 0; i < symbols.length; i++) {
-  //     await updateBinanceOHLCVs(symbols[i].symbol);
-  //     // console.log(symbols[i].symbol);
-  //   }
+  await updateBinanceOHLCVs(symbols);
   // }
 })();
 
 schedule.scheduleJob("2 * * * * *", async () => {
-  for (let i = 0; i < symbols.length; i++) {
-    await updateBinanceOHLCVs(symbols[i].symbol);
-  }
+  // for (let i = 0; i < symbols.length; i++) {
+  // symbols && (await updateBinanceOHLCVs(symbols));
+  // }
 });
 
 // schedule.scheduleJob("* * 0 * * *", async () => {
