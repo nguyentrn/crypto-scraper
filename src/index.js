@@ -24,13 +24,13 @@ let symbols;
     .limit(36);
 
   // while (true) {
-  await updateBinanceOHLCVs(symbols);
+  // await updateBinanceOHLCVs(symbols);
   // }
 })();
 
 schedule.scheduleJob("2 * * * * *", async () => {
   // for (let i = 0; i < symbols.length; i++) {
-  // symbols && (await updateBinanceOHLCVs(symbols));
+  symbols && (await updateBinanceOHLCVs(symbols));
   // }
 });
 
