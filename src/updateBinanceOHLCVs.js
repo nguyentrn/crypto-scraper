@@ -2,7 +2,21 @@ import axios from "axios";
 
 import db from "../src/database/index";
 
-const updateBinanceOHLCVs = async (symbols) => {
+const updateBinanceOHLCVs = async () => {
+  const symbols = await db
+    .with(
+      "last",
+      db("ohlcvs").select(db.raw("symbol, max(time)")).groupBy("symbol")
+    )
+    .from("binance_trading_pairs")
+    .join("coins", "binance_trading_pairs.baseAsset", "coins.symbol")
+    .join("last", "binance_trading_pairs.symbol", "last.symbol")
+    .select(["binance_trading_pairs.symbol", "last.max"])
+    .where("rank", "<", 1000)
+    .where("max", "<", new Date("2022-01-09T22:39:00.000Z"))
+    .orderBy("rank")
+    .limit(5);
+
   const ohlcvs = [];
   for (let i = 0; i < symbols.length; i++) {
     const { symbol, max } = symbols[i];
