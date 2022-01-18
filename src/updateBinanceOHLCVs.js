@@ -23,9 +23,14 @@ const updateBinanceOHLCVs = async (interval) => {
   for (let i = 0; i < pairs.length; i++) {
     const symbol = pairs[i].symbol;
     const table = `binance_${symbol.toLowerCase()}usdt_1m`;
-    const data = await db.withSchema("ohlcvs").from(table).select("*").first();
+    const data = await db
+      .withSchema("ohlcvs")
+      .from(table)
+      .select("*")
+      .orderBy("time", "desc")
+      .first();
     const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=1000&startTime=${
-      data && data.max ? data.max.getTime() : 0
+      data && data.time ? data.time.getTime() : 0
     }`;
     const res = await axios(url);
     const ohlcvs = res.data.map((ohlcv) => ({
