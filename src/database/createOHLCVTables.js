@@ -7,8 +7,21 @@ const intervals = ["1m", "5m", "10m"];
     .join("coins", "binance_trading_pairs.baseAsset", "coins.symbol")
     .select("binance_trading_pairs.symbol")
     .orderBy("rank")
-    .whereNotIn("baseAsset", ["BUSD", "USDT", "USDC"])
-    .limit(6);
+    .whereNotIn("baseAsset", [
+      "BUSD",
+      "DAI",
+      "FEI",
+      "FRAX",
+      "GUSD",
+      "LUSD",
+      "TUSD",
+      "USDC",
+      "USDN",
+      "USDP",
+      "USDT",
+      "UST",
+    ])
+    .limit(24);
   for (let i = 0; i < coins.length; i++) {
     for (let j = 0; j < intervals.length; j++) {
       const tableName = `binance_${coins[i].symbol.toLowerCase()}_${
