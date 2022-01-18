@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "table": "nodemon --exec babel-node src/database/createOHLCVTables.js",
     "dev": "nodemon --exec babel-node src/index.js"
   },
   "repository": {
