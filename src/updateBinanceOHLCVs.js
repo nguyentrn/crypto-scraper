@@ -33,7 +33,7 @@ const updateBinanceOHLCVs = async (interval) => {
     if (!data) {
       data = { time: 0 };
     }
-    if (data.time <= new Date("2022-01-17")) {
+    if (data.time) {
       const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=1000&startTime=${
         data.time ? data.time.getTime() : 0
       }`;
