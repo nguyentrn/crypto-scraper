@@ -15,7 +15,7 @@ import updateExchangeSymbols from "./updateExchangeSymbols";
   // }
 })();
 
-schedule.scheduleJob("*/5 * * * * *", async () => {
+schedule.scheduleJob("3 * * * * *", async () => {
   await updateBinanceOHLCVs("1m");
 });
 
