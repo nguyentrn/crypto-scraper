@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import db from "../src/database/index";
+import db from "./database/index";
 
 const updateBinanceOHLCVs = async (interval) => {
   const tables = await db.raw(
