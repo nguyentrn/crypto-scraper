@@ -1,18 +1,25 @@
 import schedule from "node-schedule";
-import create10mOHLCVsFrom1m from "./create10mOHLCVsFrom1m";
+import createOHLCVsFrom1m from "./createOHLCVsFrom1m";
 
 import db from "./database";
+import downloadTokenLogos from "./downloadTokenLogo";
+import setTokenColors from "./setTokenColors";
 import updateBinanceOHLCVs from "./updateBinanceOHLCVs";
 import updateCoinmarketSymbols from "./updateCoinmarketSymbols";
 import updateExchangeSymbols from "./updateExchangeSymbols";
 
 (async () => {
-  // await create10mOHLCVsFrom1m();
   // await updateCoinmarketSymbols();
   // await updateExchangeSymbols();
+  // await createOHLCVsFrom1m();
+  // await downloadTokenLogos();
+  // await setTokenColors();
   // while (true) {
   //   await updateBinanceOHLCVs("1m");
   // }
+  // await updateBinanceOHLCVs("1m");
+
+  console.log("done");
 })();
 
 schedule.scheduleJob("3 * * * * *", async () => {

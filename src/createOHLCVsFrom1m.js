@@ -3,7 +3,7 @@ import lodash, { max, min } from "lodash";
 
 import db from "./database/index";
 
-const create10mOHLCVsFrom1m = async (interval = 10) => {
+const createOHLCVsFrom1m = async (interval = 5) => {
   let isRunning = true;
   while (isRunning) {
     const from = await db
@@ -17,7 +17,7 @@ const create10mOHLCVsFrom1m = async (interval = 10) => {
       .from("binance_btcusdt_1m")
       .select("*")
       .orderBy("time")
-      .where("time", ">", from.time || new Date("2010-01-01"))
+      .where("time", ">", (from && from.time) || new Date("2010-01-01"))
       .limit(5000 * interval);
     if (m1s.length < 5000 * interval) {
       isRunning = false;
@@ -74,4 +74,4 @@ const create10mOHLCVsFrom1m = async (interval = 10) => {
   //   }
 };
 
-export default create10mOHLCVsFrom1m;
+export default createOHLCVsFrom1m;

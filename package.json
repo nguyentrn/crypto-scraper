@@ -29,6 +29,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
+    "colorthief": "^2.3.2",
     "dotenv": "^10.0.0",
     "knex": "^0.95.14",
     "lodash": "^4.17.21",

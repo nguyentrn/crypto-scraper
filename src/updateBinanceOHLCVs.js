@@ -18,7 +18,7 @@ const updateBinanceOHLCVs = async (interval) => {
     .select("symbol")
     .whereIn("symbol", symbols)
     .orderBy("rank")
-    .limit(24);
+    .limit(36);
 
   for (let i = 0; i < pairs.length; i++) {
     const symbol = pairs[i].symbol;
@@ -33,29 +33,29 @@ const updateBinanceOHLCVs = async (interval) => {
     if (!data) {
       data = { time: 0 };
     }
-    if (data.time) {
-      const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=1000&startTime=${
-        data.time ? data.time.getTime() : 0
-      }`;
-      const res = await axios(url);
-      const ohlcvs = res.data.map((ohlcv) => ({
-        time: new Date(ohlcv[0]),
-        open: ohlcv[1],
-        high: ohlcv[2],
-        low: ohlcv[3],
-        close: ohlcv[4],
-        volume: ohlcv[5],
-        trades: ohlcv[8],
-        taker_volume: ohlcv[9],
-      }));
-      console.log(symbol, new Date(res.data[0][0]));
-      await db
-        .withSchema("ohlcvs")
-        .from(table)
-        .insert(ohlcvs)
-        .onConflict("time")
-        .merge();
-    }
+    // if (data.time) {
+    const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=1000&startTime=${
+      data.time ? data.time.getTime() : 0
+    }`;
+    const res = await axios(url);
+    const ohlcvs = res.data.map((ohlcv) => ({
+      time: new Date(ohlcv[0]),
+      open: ohlcv[1],
+      high: ohlcv[2],
+      low: ohlcv[3],
+      close: ohlcv[4],
+      volume: ohlcv[5],
+      trades: ohlcv[8],
+      taker_volume: ohlcv[9],
+    }));
+    console.log(i, pairs.length, symbol, new Date(res.data[0][0]));
+    await db
+      .withSchema("ohlcvs")
+      .from(table)
+      .insert(ohlcvs)
+      .onConflict("time")
+      .merge();
+    // }
   }
 };
 
