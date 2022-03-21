@@ -18,6 +18,7 @@ const updateBinanceOHLCVs = async (interval) => {
     .select("symbol")
     .whereIn("symbol", symbols)
     .orderBy("rank")
+    // .whereIn("symbol", ["ETC", "VET"])
     .limit(36);
 
   for (let i = 0; i < pairs.length; i++) {
@@ -38,23 +39,31 @@ const updateBinanceOHLCVs = async (interval) => {
       data.time ? data.time.getTime() : 0
     }`;
     const res = await axios(url);
-    const ohlcvs = res.data.map((ohlcv) => ({
-      time: new Date(ohlcv[0]),
-      open: ohlcv[1],
-      high: ohlcv[2],
-      low: ohlcv[3],
-      close: ohlcv[4],
-      volume: ohlcv[5],
-      trades: ohlcv[8],
-      taker_volume: ohlcv[9],
-    }));
+    const ohlcvs = res.data
+      .map((ohlcv) => {
+        if (ohlcv[6] - Date.now() < 0) {
+          return {
+            time: new Date(ohlcv[0]),
+            open: ohlcv[1],
+            high: ohlcv[2],
+            low: ohlcv[3],
+            close: ohlcv[4],
+            volume: ohlcv[5],
+            trades: ohlcv[8],
+            taker_volume: ohlcv[9],
+          };
+        }
+      })
+      .filter((o) => o);
     console.log(i, pairs.length, symbol, new Date(res.data[0][0]));
-    await db
-      .withSchema("ohlcvs")
-      .from(table)
-      .insert(ohlcvs)
-      .onConflict("time")
-      .merge();
+    if (ohlcvs.length) {
+      await db
+        .withSchema("ohlcvs")
+        .from(table)
+        .insert(ohlcvs)
+        .onConflict("time")
+        .merge();
+    }
     // }
   }
 };
