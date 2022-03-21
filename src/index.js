@@ -15,17 +15,17 @@ import updateExchangeSymbols from "./updateExchangeSymbols";
   // await createOHLCVsFrom1m();
   // await downloadTokenLogos();
   // await setTokenColors();
-  while (true) {
-    await updateBinanceOHLCVs("1m");
-  }
+  // while (true) {
+  //   await updateBinanceOHLCVs("1m");
+  // }
   // await updateBinanceOHLCVs("1m");
 
   console.log("done");
 })();
 
-// schedule.scheduleJob("3 * * * * *", async () => {
-//   await updateBinanceOHLCVs("1m");
-// });
+schedule.scheduleJob("3 * * * * *", async () => {
+  await updateBinanceOHLCVs("1m");
+});
 
 // schedule.scheduleJob("* * 0 * * *", async () => {
 //   await updateCoinmarketSymbols();

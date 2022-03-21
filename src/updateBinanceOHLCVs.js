@@ -36,9 +36,10 @@ const updateBinanceOHLCVs = async (interval) => {
     }
     // if (data.time) {
     const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=1000&startTime=${
-      data.time ? data.time.getTime() : 0
+      data.time ? data.time.getTime() - 600000 : 0
     }`;
     const res = await axios(url);
+
     const ohlcvs = res.data
       .map((ohlcv) => {
         if (ohlcv[6] - Date.now() < 0) {
