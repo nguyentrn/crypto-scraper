@@ -19,7 +19,6 @@ import updateExchangeSymbols from "./updateExchangeSymbols";
   //   await updateBinanceOHLCVs("1m");
   // }
   // await updateBinanceOHLCVs("1m");
-
   console.log("done");
 })();
 

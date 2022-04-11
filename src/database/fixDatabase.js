@@ -22,7 +22,7 @@ export default async () => {
       "USDT",
       "UST",
     ])
-    .limit(36);
+    .limit(24);
   for (let i = 0; i < coins.length; i++) {
     for (let j = 0; j < intervals.length; j++) {
       const tableName = `binance_${coins[i].symbol.toLowerCase()}_${

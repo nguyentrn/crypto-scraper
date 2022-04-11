@@ -19,7 +19,7 @@ const updateBinanceOHLCVs = async (interval) => {
     .whereIn("symbol", symbols)
     .orderBy("rank")
     // .whereIn("symbol", ["ETC", "VET"])
-    .limit(36);
+    .limit(24);
 
   for (let i = 0; i < pairs.length; i++) {
     const symbol = pairs[i].symbol;
